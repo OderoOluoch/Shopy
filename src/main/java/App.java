@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class App {
     public static void main(String[] args) {
         System.out.println("Welcome to Shopy, ");
@@ -18,6 +20,28 @@ public class App {
         System.out.println("4. View Orders");
         System.out.println("5. Exit");
         System.out.println("6. Please choose option: 1");
+        Scanner scan = new Scanner(System.in);
+        int num = scan.nextInt();
+        switch(num) {
+            case 1:
+                System.out.println("We are placing an order");
+                break;
+            case 2:
+                System.out.println("We are cancelling an order");
+                break;
+            case 3:
+                System.out.println("We are viewing the cart");
+                break;
+            case 4:
+                System.out.println("We are viewing the order");
+                break;
+            case 5:
+                System.out.println("We want to exit");
+                break;
+            default:
+                System.out.println("Alaaaa");
+        }
+
 
     }
 
