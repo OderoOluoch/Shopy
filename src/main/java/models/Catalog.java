@@ -25,8 +25,6 @@ public class Catalog {
     public void setItem(Item item) {
         this.item = item;
     }
-    public int getItemQty(Item item){
-        return  item.getQty();
-    }
+
 
 }
