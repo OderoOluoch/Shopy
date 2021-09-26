@@ -1,46 +1,62 @@
 package models;
 
 public class Item {
-    private int id;
-    private String name;
-    private int qty;
+    private final String name;
+    private double price;
+    private int quantityInStock = 0;
 
-    public Item(int id, String name, int qty) {
-        this.id = id;
+    public Item(String name, double price) {
         this.name = name;
-        this.qty = qty;
+        this.price = price;
+        this.quantityInStock = 0;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public Item(String name, double price, int quantityInStock) {
+        this.name = name;
+        this.price = price;
+        this.quantityInStock = quantityInStock;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public double getPrice() {
+        return price;
     }
 
-    public int getQty() {
-        return qty;
+    public int getQuantityInStock() {
+        return quantityInStock;
     }
 
-    public void setQty(int qty) {
-        this.qty = qty;
+    public void setPrice(double price) {
+        if(price > 0.0){
+            this.price = price;
+        }
+    }
+
+    public void manageStock(int quantity){
+        int adjustedQuantity = this.quantityInStock + quantity;
+        if(adjustedQuantity >= 0){
+            this.quantityInStock = adjustedQuantity;
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this){
+            return true;
+        }
+        if((obj == null) || (obj.getClass() != this.getClass())){
+            return false;
+        }
+        String objName = ((Item) obj).getName();
+        return this.name.equals(objName);
     }
 
     @Override
     public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", qty=" + qty +
-                '}';
+        return this.name + " : price " + this.price;
     }
+
 }
