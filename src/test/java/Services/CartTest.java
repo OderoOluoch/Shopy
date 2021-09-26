@@ -37,4 +37,13 @@ class CartTest {
         assertEquals(1,cart.ItemsInCart().size());
     }
 
+    @Test
+    public void item_ShouldRemoveItemFromCart(){
+        cart.addItemToCart(testItem,1);
+        assertEquals(1,cart.ItemsInCart().size());
+        cart.removeItemFromCart(testItem,1);
+        assertEquals(0,cart.ItemsInCart().size());
+        //assertEquals(null,cart.ItemsInCart().get(testItem.getName()));
+    }
+
 }

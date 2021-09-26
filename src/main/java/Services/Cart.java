@@ -25,7 +25,8 @@ public class Cart {
     public int removeItemFromCart(ShopItem shopItem, int quantity){
         if( (shopItem != null ) && (quantity > 0)){
             int inCart = itemsInStock.getOrDefault(shopItem,0);
-            itemsInStock.put(shopItem, inCart - quantity);
+            itemsInStock.put(shopItem,inCart -quantity);
+            itemsInStock.remove(shopItem);
             return inCart;
         }
         return 0;

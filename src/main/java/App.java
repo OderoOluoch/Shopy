@@ -20,31 +20,34 @@ public class App {
         System.out.println("PLEASE SELECT ANY OF THE FOLLOWING TO ENJOY OUR SERVICES ");
         System.out.println("Enter 1 to Place an Order");
         System.out.println("Enter 2 to View Cart");
-        System.out.println("Enter 3 to View Orders");
-        System.out.println("Enter 4 to Exit");
+        System.out.println("Enter 3 to Exit");
         Scanner scan = new Scanner(System.in);
-        int num = scan.nextInt();
-        switch(num) {
-            case 1:
-                makeAnOrder();
-                break;
-            case 2:
-                viewCart();
-                break;
-            case 3:
-                System.out.println("We are viewing the order");
-                break;
-            case 4:
-               exit();
-                break;
-            default:
+        if(scan.hasNextInt()){
+            int num = scan.nextInt();
+            switch(num) {
+                case 1:
+                    makeAnOrder();
+                    break;
+                case 2:
+                    viewCart();
+                    break;
+                case 3:
+                    exit();
+                    break;
+                default:
+                    System.out.println("Please be sure to enter a correct input");
+                    show();
 
+            }
         }
+//        System.out.println("Please be sure to enter a correct input");
+//        show();
+
     }
 
     private static void viewCart() {
         Scanner scan = new Scanner(System.in);
-        if(cart != null){
+        if(cart.ItemsInCart().size() != 0){
             System.out.println(cart);
         }else {
             System.out.println("Your cart is empty");
@@ -59,9 +62,14 @@ public class App {
         int num = scan.nextInt();
         switch(num) {
             case 1:
-                System.out.println("We are happy to serve you. Your order is on the way and will be paid on delivery");
-                System.out.println("************************Order details***********************");
-                System.out.println(cart);
+                if(cart.ItemsInCart().size() != 0){
+                    System.out.println("We are happy to serve you. Your order is on the way and will be paid on delivery");
+                    System.out.println("************************Order details***********************");
+                    System.out.println(cart);
+                }else{
+                    System.out.println("************************Your Cart is empty****** Make an order to proceed");
+                    show();
+                }
                 break;
             case 2:
                 makeAnOrder();
