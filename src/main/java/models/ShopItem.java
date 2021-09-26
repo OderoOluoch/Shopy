@@ -1,17 +1,17 @@
 package models;
 
-public class Item {
+public class ShopItem {
     private final String name;
     private double price;
     private int quantityInStock = 0;
 
-    public Item(String name, double price) {
+    public ShopItem(String name, double price) {
         this.name = name;
         this.price = price;
         this.quantityInStock = 0;
     }
 
-    public Item(String name, double price, int quantityInStock) {
+    public ShopItem(String name, double price, int quantityInStock) {
         this.name = name;
         this.price = price;
         this.quantityInStock = quantityInStock;
@@ -50,7 +50,7 @@ public class Item {
         if((obj == null) || (obj.getClass() != this.getClass())){
             return false;
         }
-        String objName = ((Item) obj).getName();
+        String objName = ((ShopItem) obj).getName();
         return this.name.equals(objName);
     }
 
