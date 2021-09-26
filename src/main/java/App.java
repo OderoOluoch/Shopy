@@ -1,3 +1,6 @@
+import models.Catalog;
+import models.Item;
+
 import java.util.Scanner;
 
 public class App {
@@ -43,6 +46,12 @@ public class App {
         }
 
 
+    }
+
+    public void populateItems(){
+        Item item = new Item(1,"Kabras Sugar", 15);
+        Catalog catalog = new Catalog(1,item);
+        catalog.getItemQty(item);
     }
 
 }
