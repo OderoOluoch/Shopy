@@ -2,6 +2,7 @@ package Services;
 
 import models.ShopItem;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -26,10 +27,21 @@ public class Catalogue {
         return 0;
     }
 
-
+    public int sellItem(String itemToSell, int quantity){
+        ShopItem inStock = itemsInStock.getOrDefault(itemToSell,null);
+        if((inStock != null) && (inStock.getQuantityInStock() >= quantity) && (quantity > 0 )){
+            inStock.manageStock(-quantity);
+            return quantity;
+        }
+        return 0;
+    }
 
     public ShopItem get(String key){
         return itemsInStock.get(key);
+    }
+
+    public Map<String, ShopItem> shopItems(){
+        return Collections.unmodifiableMap(itemsInStock);
     }
 
     @Override
