@@ -9,19 +9,19 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ItemTest {
+class ShopItemTest {
 
-    Item testItem;
+    ShopItem testItem;
 
     @BeforeEach
     public void setUp(){
-        testItem = new Item("Kiwi",70.00,20);
+        testItem = new ShopItem("Kiwi",70.00,20);
     }
 
     @Test
     @DisplayName("Should create Shop Item Object")
     public void item_shouldCreateItemObject_true(){
-        assertEquals(true, testItem instanceof  Item);
+        assertEquals(true, testItem instanceof ShopItem);
     }
 
     @Test
@@ -78,7 +78,7 @@ class ItemTest {
     @Test
     @DisplayName("Should return true if the object name is true")
     public void equals_returnsTrueIfNameIsSame_True(){
-        Item testItemTwo = new Item("Kiwi",70.00,20);
+        ShopItem testItemTwo = new ShopItem("Kiwi",70.00,20);
         assertTrue(testItem.equals(testItemTwo));
     }
 

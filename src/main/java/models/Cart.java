@@ -1,17 +1,17 @@
 package models;
 
 public class Cart {
-    private Item item;
+    private ShopItem item;
 
-    public Cart(Item item) {
+    public Cart(ShopItem item) {
         this.item = item;
     }
 
-    public Item getItem() {
+    public ShopItem getItem() {
         return item;
     }
 
-    public void setItem(Item item) {
+    public void setItem(ShopItem item) {
         this.item = item;
     }
 
