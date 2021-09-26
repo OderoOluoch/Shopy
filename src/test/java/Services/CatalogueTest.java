@@ -26,7 +26,7 @@ class CatalogueTest {
     @Test
     @DisplayName("Should add item to the shop catalogue")
     public void item_addItemToCatalogue_true(){
-        shopCatalogue.addStockToCatalogues(testItem);
+        shopCatalogue.addStockToCatalogue(testItem);
         assertEquals(testItem,shopCatalogue.get(testItem.getName()) );
     }
 

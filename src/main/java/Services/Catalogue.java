@@ -2,6 +2,7 @@ package Services;
 
 import models.ShopItem;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ public class Catalogue {
         this.itemsInStock = new LinkedHashMap<>();
     }
 
-    public int addStockToCatalogues(ShopItem shopItem){
+    public int addStockToCatalogue(ShopItem shopItem){
         if(shopItem != null){
             //Check if item already exists in the catalogue
             ShopItem inStock = itemsInStock.getOrDefault(shopItem.getName(),shopItem);
@@ -27,9 +28,21 @@ public class Catalogue {
     }
 
 
+    public int sellItem(String itemToSell, int quantity){
+        ShopItem inStock = itemsInStock.getOrDefault(itemToSell,null);
+        if((inStock != null) && (inStock.getQuantityInStock() >= quantity) && (quantity > 0 )){
+            inStock.manageStock(-quantity);
+            return quantity;
+        }
+        return 0;
+    }
 
     public ShopItem get(String key){
         return itemsInStock.get(key);
+    }
+
+    public Map<String, ShopItem> shopItems(){
+        return Collections.unmodifiableMap(itemsInStock);
     }
 
     @Override
@@ -40,7 +53,7 @@ public class Catalogue {
             ShopItem shopItem = catalogueItem.getValue();
 
             double itemValue = shopItem.getPrice() * shopItem.getQuantityInStock();
-            s = s + shopItem + ". Available Quantity " +shopItem.getQuantityInStock();
+            s = s + shopItem + ". Available Quantity " +shopItem.getQuantityInStock() +"\n";
         }
         return s ;
     }
