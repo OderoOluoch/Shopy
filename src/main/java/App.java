@@ -1,42 +1,144 @@
+import Services.Cart;
+import Services.Catalogue;
+import models.ShopItem;
+
 import java.util.Scanner;
 
 public class App {
+    private static Catalogue itemsInStock = new Catalogue();
+    static Cart cart = new Cart();
+    public static String s1 = "Y";
     public static void main(String[] args) {
+        generateStock();
         System.out.println("Welcome to Shopy, ");
-        System.out.println("------------------------------------------");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("AVAILABLE ITEMS IN THE CATALOG: ");
-        System.out.println("1. Item: Kabras Sugar Qty: 10");
-        System.out.println("2. Item: Ajab Flour Qty: 10");
-        System.out.println("3. Item: Kimbo Oil Qty: 8");
-        System.out.println("");
-        System.out.println("");
+        System.out.println("--------------------------------------------");
+        show();
+
+    }
+
+    public static void show(){
+
+        System.out.println(itemsInStock);
         System.out.println("--------------------------------------------");
         System.out.println("PLEASE SELECT ANY OF THE FOLLOWING TO ENJOY OUR SERVICES ");
-        System.out.println("1. Place an Order");
-        System.out.println("2. Cancel the Order");
-        System.out.println("3. View Cart");
-        System.out.println("4. View Orders");
-        System.out.println("5. Exit");
-        System.out.println("6. Please choose option: 1");
+        System.out.println("Enter 1 to Place an Order");
+        System.out.println("Enter 2 to View Cart");
+        System.out.println("Enter 3 to View Orders");
+        System.out.println("Enter 4 to Exit");
         Scanner scan = new Scanner(System.in);
         int num = scan.nextInt();
         switch(num) {
             case 1:
-                System.out.println("We are placing an order");
+                makeAnOrder();
                 break;
             case 2:
-                System.out.println("We are cancelling an order");
+                viewCart();
                 break;
             case 3:
-                System.out.println("We are viewing the cart");
-                break;
-            case 4:
                 System.out.println("We are viewing the order");
                 break;
-            case 5:
-                System.out.println("We want to exit");
+            case 4:
+               exit();
+                break;
+            default:
+        }
+    }
+
+    private static void viewCart() {
+        Scanner scan = new Scanner(System.in);
+        if(cart != null){
+            System.out.println(cart);
+        }else {
+            System.out.println("Your cart is empty");
+        }
+
+        System.out.println("***********************************************");
+
+        System.out.println("Enter 1 to confirm order placement");
+        System.out.println("Enter 2 to purchase more items");
+        System.out.println("Enter 3 to remove an item from the cart");
+        System.out.println("Enter 4 to exit");
+        int num = scan.nextInt();
+        switch(num) {
+            case 1:
+                System.out.println("We are happy to serve you. Your order is on the way and will be paid on delivery");
+                break;
+            case 2:
+                makeAnOrder();
+                break;
+            case 3:
+                exit();
+                break;
+            default:
+                System.out.println("Alaaaa");
+        }
+
+
+
+    }
+
+    public static void generateStock(){
+        ShopItem shopItem = new ShopItem("Supper Loaf", 50.00, 100);
+        itemsInStock.addStockToCatalogue(shopItem);
+
+        shopItem = new ShopItem("Maziwa Mala", 100.00, 10);
+        itemsInStock.addStockToCatalogue(shopItem);
+
+        shopItem = new ShopItem("Rhino Kiberiti", 5.00, 12);
+        itemsInStock.addStockToCatalogue(shopItem);
+
+        shopItem = new ShopItem("Queen cake", 20.00, 5);
+        itemsInStock.addStockToCatalogue(shopItem);
+
+        shopItem = new ShopItem("Queen cake", 20.00, 4);
+        itemsInStock.addStockToCatalogue(shopItem);
+
+        shopItem = new ShopItem("Pishori rice", 85.00, 13);
+        itemsInStock.addStockToCatalogue(shopItem);
+
+        shopItem = new ShopItem("Kabras Sugar", 90.00, 20);
+        itemsInStock.addStockToCatalogue(shopItem);
+
+        shopItem = new ShopItem("Mumias Sugar", 85.0, 17);
+        itemsInStock.addStockToCatalogue(shopItem);
+
+        shopItem = new ShopItem("Royco cubes", 6.0, 9);
+        itemsInStock.addStockToCatalogue(shopItem);
+
+        shopItem = new ShopItem("Britania Biscuits", 5.0, 25);
+        itemsInStock.addStockToCatalogue(shopItem);
+
+        shopItem = new ShopItem("Kasuku book", 50.5, 3);
+        itemsInStock.addStockToCatalogue(shopItem);
+
+        shopItem = new ShopItem("Cocoa", 5.00, 11);
+        itemsInStock.addStockToCatalogue(shopItem);
+    }
+
+    public static void makeAnOrder(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("What would you like to order _________");
+        String itemName = scan.nextLine();
+        System.out.println("How Many of " + itemName + " would ou like to order _________");
+        int itemQuantity = scan.nextInt();
+
+
+        sellItem(cart,itemName,itemQuantity);
+
+        System.out.println("Please make the following selections to proceed");
+        System.out.println("Enter 1 to View Cart");
+        System.out.println("Enter 2 to Continue Shopping");
+        System.out.println("Enter 3 to Exit");
+        int num = scan.nextInt();
+        switch(num) {
+            case 1:
+                viewCart();
+                break;
+            case 2:
+                show();
+                break;
+            case 3:
+                exit();
                 break;
             default:
                 System.out.println("Alaaaa");
@@ -45,6 +147,25 @@ public class App {
 
     }
 
-
-
+    public static int sellItem(Cart cart, String itemName, int quantity){
+        //User the given name to search for the item from the items available in the catalogue
+        ShopItem shopItem = itemsInStock.get(itemName);
+        if(shopItem == null ){
+            System.out.println("Sorry, we do not have " + itemName + " at the moment. Please check back later");
+            return 0;
+        }else if(quantity > shopItem.getQuantityInStock()){
+            System.out.println("We only have " + shopItem.getQuantityInStock() +" available for " + shopItem.getName());
+        }
+        if(itemsInStock.sellItem(itemName,quantity) !=0){
+            cart.addItemToCart(shopItem,quantity);
+            return quantity;
+        }
+        return 0;
+    }
+    public static void exit(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Are you sure you want to exit ? Y/N");
+        s1 = scan.nextLine();
+        scan.close();
+    }
 }

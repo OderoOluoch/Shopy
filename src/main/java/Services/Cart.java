@@ -22,6 +22,16 @@ public class Cart {
         return 0;
     }
 
+
+    public int removeItemFromCart(ShopItem shopItem, int quantity){
+        if( (shopItem != null ) && (quantity > 0)){
+            int inCart = itemsInStock.getOrDefault(shopItem,0);
+            itemsInStock.put(shopItem, inCart - quantity);
+            return inCart;
+        }
+        return 0;
+    }
+
     public Map<ShopItem, Integer> ItemsInCart(){
         return Collections.unmodifiableMap(itemsInStock);
     }
