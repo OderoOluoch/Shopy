@@ -7,17 +7,14 @@ import java.util.Scanner;
 public class App {
     private static Catalogue itemsInStock = new Catalogue();
     static Cart cart = new Cart();
-    public static String s1 = "Y";
     public static void main(String[] args) {
         generateStock();
         System.out.println("Welcome to Shopy, ");
         System.out.println("--------------------------------------------");
         show();
-
     }
 
     public static void show(){
-
         System.out.println(itemsInStock);
         System.out.println("--------------------------------------------");
         System.out.println("PLEASE SELECT ANY OF THE FOLLOWING TO ENJOY OUR SERVICES ");
@@ -41,6 +38,7 @@ public class App {
                exit();
                 break;
             default:
+
         }
     }
 
@@ -62,6 +60,47 @@ public class App {
         switch(num) {
             case 1:
                 System.out.println("We are happy to serve you. Your order is on the way and will be paid on delivery");
+                System.out.println("************************Order details***********************");
+                System.out.println(cart);
+                break;
+            case 2:
+                makeAnOrder();
+                break;
+            case 3:
+                removeFromCart();
+                break;
+            case 4:
+                System.out.println("Exit");
+            default:
+                System.out.println("Alaaaa");
+        }
+
+    }
+
+    private static void removeFromCart() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter the name of the item you want to remove _________");
+        String itemName = scan.nextLine();
+        System.out.println("How Many of " + itemName + " had you ordered  _________");
+        int itemQuantity = scan.nextInt();
+
+        ShopItem shopItem = itemsInStock.get(itemName);
+        if(shopItem == null ){
+            System.out.println("Sorry, we do not have " + itemName + " in your current shopping cart");
+        }
+        if(itemsInStock.sellItem(itemName,itemQuantity) !=0){
+            cart.removeItemFromCart(shopItem,itemQuantity);
+
+        }
+
+        System.out.println("Please make the following selections to proceed");
+        System.out.println("Enter 1 to View Cart");
+        System.out.println("Enter 2 to Continue Shopping");
+        System.out.println("Enter 3 to Exit");
+        int num = scan.nextInt();
+        switch(num) {
+            case 1:
+                viewCart();
                 break;
             case 2:
                 makeAnOrder();
@@ -74,11 +113,10 @@ public class App {
         }
 
 
-
     }
 
     public static void generateStock(){
-        ShopItem shopItem = new ShopItem("Supper Loaf", 50.00, 100);
+        ShopItem shopItem = new ShopItem("Supa Loaf", 50.00, 100);
         itemsInStock.addStockToCatalogue(shopItem);
 
         shopItem = new ShopItem("Maziwa Mala", 100.00, 10);
@@ -135,7 +173,7 @@ public class App {
                 viewCart();
                 break;
             case 2:
-                show();
+                makeAnOrder();
                 break;
             case 3:
                 exit();
@@ -163,9 +201,7 @@ public class App {
         return 0;
     }
     public static void exit(){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Are you sure you want to exit ? Y/N");
-        s1 = scan.nextLine();
-        scan.close();
+        System.out.println("Thank you for Shopping with us");
+        System.exit(0);
     }
 }
